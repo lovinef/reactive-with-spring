@@ -24,6 +24,6 @@ public class UserService{
                             .age(findUser.getAge())
                             .build();
                 }).collectList()
-                .subscribeOn(Schedulers.elastic());
+                .subscribeOn(Schedulers.elastic()); // block I/O 대응
     }
 }

@@ -32,3 +32,4 @@ out/
 .vscode/
 !frontend/README.md
 src/test/
+src/main/generated/
