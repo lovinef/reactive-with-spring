@@ -3,7 +3,7 @@
     <h1>main page</h1>
     <router-link to="/">go to home</router-link>
     <div>
-      <div>call get ajax data test</div>
+      <div>callget ajax data test</div>
       <button v-on:click="callGetAjax($event)">get ajax test</button>
       <div v-show="doGetShow">
         <p>name is here : {{ name }}</p>

@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/myjpa
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none #create
+    properties:
+      hibernate:
+        #        dialect: com.exaple.dsl.config.ExtendedH2Dialect
+        show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 500 # Lazy 로딩시 in query 최대 개수 (범위 1 ~ 1000)
+
+logging:
+  level:
+    org:
+      springframework.web: debug
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace

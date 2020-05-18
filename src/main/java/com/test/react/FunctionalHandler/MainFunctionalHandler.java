@@ -1,7 +1,6 @@
-package com.test.react;
+package com.test.react.FunctionalHandler;
 
-import com.test.react.Entity.User;
-import lombok.RequiredArgsConstructor;
+import com.test.react.Model.User;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -29,7 +28,6 @@ public class MainFunctionalHandler {
         String address = "판교 주소";
         Mono<User> userMono = request.bodyToMono(User.class)
                 .map(user -> {
-                    user.setAddress(address);
                     return user;
                 });
 

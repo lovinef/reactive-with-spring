@@ -1,9 +1,7 @@
 package com.test.react.Service;
 
-import com.test.react.Entity.User;
+import com.test.react.Model.User;
 import org.springframework.stereotype.Service;
-
-import javax.naming.Name;
 
 @Service
 public class MainServiceImpl implements MainService{

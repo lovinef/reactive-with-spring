@@ -1,6 +1,6 @@
 package com.test.react.Controller;
 
-import com.test.react.Entity.User;
+import com.test.react.Model.User;
 import com.test.react.Service.MainService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

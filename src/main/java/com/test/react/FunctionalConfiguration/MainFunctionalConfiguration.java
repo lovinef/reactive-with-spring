@@ -1,6 +1,6 @@
-package com.test.react.Controller;
+package com.test.react.FunctionalConfiguration;
 
-import com.test.react.MainFunctionalHandler;
+import com.test.react.FunctionalHandler.MainFunctionalHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.config.EnableWebFlux;
