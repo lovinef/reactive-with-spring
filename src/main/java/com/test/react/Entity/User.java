@@ -21,23 +21,9 @@ public class User {
             strategy = GenerationType.SEQUENCE,
             generator = "USER_SEQ_INDEX_GEN"
     )
-    @Column(name = "id")
+    @Column(name = "USER_ID", unique = true)
     private Long id;
 
     @Column(unique = true)
     private String name;
-
-    private int age;
-
-    private String address;
-
-    public User changeAge(int age){
-        this.age = age;
-        return this;
-    }
-
-    public User changeAddress(String address){
-        this.address = address;
-        return this;
-    }
 }
