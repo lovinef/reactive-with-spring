@@ -1,9 +1,6 @@
 package com.test.react.Controller;
 
-import com.test.react.Model.UpdateResponse;
-import com.test.react.Model.User;
-import com.test.react.Model.UserCount;
-import com.test.react.Model.UserDetailCnt;
+import com.test.react.Model.*;
 import com.test.react.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,8 +43,6 @@ public class UserController {
         return userService.userListHasDetail();
     }
 
-
-
     @GetMapping("/user/update/{id}/{age}")
     public Mono<UpdateResponse> updateUser(
             @PathVariable("id") Long id,
@@ -61,11 +56,15 @@ public class UserController {
         return userService.updateUserPost(user);
     }
 
-
     @GetMapping("/user/delete/{id}")
     public Mono<UpdateResponse> deleteUser(
             @PathVariable("id") Long id
     ){
         return userService.deleteUser(id);
+    }
+
+    @GetMapping("/user/currentDate")
+    public Mono<List<UserDate>> currentDate(){
+        return userService.currentDate();
     }
 }

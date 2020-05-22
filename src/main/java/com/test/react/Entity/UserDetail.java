@@ -1,5 +1,6 @@
 package com.test.react.Entity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="USER_DETAIL")
@@ -30,4 +32,17 @@ public class UserDetail {
     private int age;
 
     private String address;
+
+    @OneToOne(mappedBy = "userDetail", fetch = FetchType.LAZY)
+    private User user;
+
+    public UserDetail changeAge(int age){
+        this.age = age;
+        return this;
+    }
+
+    public UserDetail changeAddress(String address){
+        this.address = address;
+        return this;
+    }
 }

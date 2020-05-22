@@ -2,14 +2,16 @@ package com.test.react.repository;
 
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.test.react.Entity.UserDetail;
 import com.test.react.Model.User;
+import com.test.react.Model.UserDate;
 import com.test.react.Model.UserDetailCnt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 import static com.test.react.Entity.QUser.user;
@@ -125,6 +127,24 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     }
 
     @Override
+    public List<User> findUserByFromSubQuery() {
+        return null;
+    }
+
+    @Override
+    public List<UserDate> currentDate() {
+        return jpaQueryFactory
+                .select(Projections.fields(
+                        UserDate.class
+                        , user.id.as("id")
+                        , user.name.as("name")
+                        , Expressions.dateTemplate(Date.class, "{0}", Expressions.currentDate()).as("date") // current_timestamp as col_2_0_
+                ))
+                .from(user)
+                .fetch();
+    }
+
+    @Override
     @Transactional
     public boolean updateUserAge(Long id, int age) {
         long execute = jpaQueryFactory
@@ -145,6 +165,8 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
                 .from(user)
                 .fetchCount();
     }
+
+
 
     @Override
     @Transactional

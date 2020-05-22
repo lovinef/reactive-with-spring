@@ -1,9 +1,6 @@
 package com.test.react.Service;
 
-import com.test.react.Model.UpdateResponse;
-import com.test.react.Model.User;
-import com.test.react.Model.UserCount;
-import com.test.react.Model.UserDetailCnt;
+import com.test.react.Model.*;
 import com.test.react.repository.UserRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -79,5 +76,11 @@ public class UserService{
                     .message(isUpdate ? "삭제 성공" : "삭제 실패")
                     .build();
         }).subscribeOn(Schedulers.elastic());
+    }
+
+    public Mono<List<UserDate>> currentDate() {
+        return Flux.fromIterable(userRepository.currentDate())
+                .collectList()
+                .subscribeOn(Schedulers.elastic());
     }
 }

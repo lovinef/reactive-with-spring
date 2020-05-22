@@ -44,7 +44,9 @@ dependencies {
     compile group: 'com.zaxxer', name: 'HikariCP', version: '3.3.1'
 
     compileOnly 'org.projectlombok:lombok'
-    compileOnly 'com.h2database:h2'
+    compile group: 'org.qlrm', name: 'qlrm', version: '2.1.1'
+
+    runtimeOnly 'com.h2database:h2'
 
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     annotationProcessor 'org.projectlombok:lombok'

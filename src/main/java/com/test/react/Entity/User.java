@@ -3,11 +3,15 @@ package com.test.react.Entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Table(name="USER")
 @SequenceGenerator(
         name = "USER_SEQ_INDEX_GEN",
@@ -26,4 +30,20 @@ public class User {
 
     @Column(unique = true)
     private String name;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, optional = false)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "userId")
+    private UserDetail userDetail;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<Orders> orders = new ArrayList<>();
+
+    public User changeName(String name){
+        this.name = name;
+        return this;
+    }
+
+    public void addOrders(Orders order){
+        orders.add(order);
+    }
 }
