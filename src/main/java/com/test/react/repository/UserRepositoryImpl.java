@@ -1,7 +1,9 @@
 package com.test.react.repository;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -105,10 +107,20 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public List<User> findUserWithPaging(int blockCnt, int page) {
+    public List<User> findUserWithPaging(int blockCnt, int page, Long id, String name) {
         // page 처리는 0부터 시작되므로, -1 처리를 해야한다.
         if(page <= 0) page = 0;
         else page = page - 1;
+
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if(id != null && id != 0L){
+            booleanBuilder.and(user.id.eq(id));
+        }
+
+        if(name != null && !"".equals(name)){
+            booleanBuilder.and(user.name.eq(name));
+        }
 
         return jpaQueryFactory
                 .select(Projections.fields(
@@ -121,9 +133,18 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
                 )).from(user)
                 .leftJoin(userDetail)
                 .on(userDetail.userId.eq(user.id))
+                .where(usernameEq(name), userIdEq(id))
                 .offset((page <= 0) ? 0 : (page -1))
                 .limit(blockCnt)
                 .fetch();
+    }
+
+    private BooleanExpression usernameEq(String name){
+        return (name != null && !"".equals(name)) ? user.name.eq(name) : null;
+    }
+
+    private BooleanExpression userIdEq(Long id){
+        return (id != null && id != 0L) ? user.id.eq(id) : null;
     }
 
     @Override

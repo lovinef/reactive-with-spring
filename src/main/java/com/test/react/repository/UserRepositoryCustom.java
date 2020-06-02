@@ -11,7 +11,7 @@ public interface UserRepositoryCustom {
     List<User> findAllByQueryDsl();
     List<UserDetailCnt> findUserHasDetailCnt();
     List<UserDetailCnt> findUserDetailCnt();
-    List<User> findUserWithPaging(int blockCnt, int page);
+    List<User> findUserWithPaging(int blockCnt, int page, Long id, String name);
     List<User> findUserByFromSubQuery();
 
 

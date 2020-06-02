@@ -24,8 +24,8 @@ public class UserService{
                 .subscribeOn(Schedulers.elastic()); // block I/O 대응
     }
 
-    public Mono<List<User>> getAllUser(int blockCnt, int page){
-        return Flux.fromIterable(userRepository.findUserWithPaging(blockCnt, page))
+    public Mono<List<User>> getAllUser(int blockCnt, int page, Long id, String name){
+        return Flux.fromIterable(userRepository.findUserWithPaging(blockCnt, page, id, name))
                 .collectList()
                 .subscribeOn(Schedulers.elastic()); // block I/O 대응
     }
