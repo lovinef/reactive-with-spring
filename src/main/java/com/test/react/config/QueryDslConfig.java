@@ -1,6 +1,5 @@
-package com.test.react.Config;
+package com.test.react.config;
 
-import com.querydsl.core.annotations.Config;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

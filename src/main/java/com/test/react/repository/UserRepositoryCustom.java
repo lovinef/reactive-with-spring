@@ -1,9 +1,9 @@
 package com.test.react.repository;
 
 
-import com.test.react.Model.User;
-import com.test.react.Model.UserDate;
-import com.test.react.Model.UserDetailCnt;
+import com.test.react.model.User;
+import com.test.react.model.UserDate;
+import com.test.react.model.UserDetailCnt;
 
 import java.util.List;
 

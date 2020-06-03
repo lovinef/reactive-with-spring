@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: 'mainPage',
+  name: 'MainPage',
   data () {
     return {
       // request value

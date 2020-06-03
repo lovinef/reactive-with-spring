@@ -1,18 +1,12 @@
-package com.test.react.Controller;
+package com.test.react.controller;
 
-import com.test.react.Model.User;
-import com.test.react.Service.MainService;
+import com.test.react.model.User;
+import com.test.react.service.MainService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Slf4j

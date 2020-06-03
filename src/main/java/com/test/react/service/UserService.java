@@ -1,8 +1,7 @@
-package com.test.react.Service;
+package com.test.react.service;
 
-import com.test.react.Model.*;
+import com.test.react.model.*;
 import com.test.react.repository.UserRepository;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

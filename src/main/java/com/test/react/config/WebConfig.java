@@ -1,4 +1,4 @@
-package com.test.react.Config;
+package com.test.react.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.config.CorsRegistry;

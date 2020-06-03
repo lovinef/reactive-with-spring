@@ -1,21 +1,15 @@
-package com.test.react.Controller;
+package com.test.react.controller;
 
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
-import com.test.react.Model.*;
-import com.test.react.Service.UserService;
+import com.test.react.model.*;
+import com.test.react.service.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.context.request.async.DeferredResult;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
-import springfox.documentation.service.ResponseMessage;
 
 import java.util.List;
 
@@ -29,6 +23,11 @@ public class UserController {
     @GetMapping("/list")
     public Mono<List<User>> main(){
         return userService.getAllUser();
+    }
+
+    @GetMapping("/list/none")
+    public Mono<List<User>> listNone(){
+        return null;
     }
 
     @GetMapping("/list/{blockCnt}/{page}")

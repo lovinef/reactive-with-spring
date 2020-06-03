@@ -1,6 +1,6 @@
-package com.test.react.FunctionalHandler;
+package com.test.react.functionalHandler;
 
-import com.test.react.Model.User;
+import com.test.react.model.User;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;

@@ -1,4 +1,4 @@
-package com.test.react.Entity;
+package com.test.react.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

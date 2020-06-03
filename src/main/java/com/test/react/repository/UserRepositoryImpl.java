@@ -7,17 +7,17 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.test.react.Model.User;
-import com.test.react.Model.UserDate;
-import com.test.react.Model.UserDetailCnt;
+import com.test.react.model.User;
+import com.test.react.model.UserDate;
+import com.test.react.model.UserDetailCnt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 
-import static com.test.react.Entity.QUser.user;
-import static com.test.react.Entity.QUserDetail.userDetail;
+import static com.test.react.entity.QUser.user;
+import static com.test.react.entity.QUserDetail.userDetail;
 
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepositoryCustom{
@@ -28,7 +28,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
         // DTO로 결과값 반환
         return jpaQueryFactory
                 .select(Projections.fields(
-                    com.test.react.Model.User.class,
+                    com.test.react.model.User.class,
                     user.id.as("userId"),
                     user.name.as("name"),
                     userDetail.id.as("userDetailId"),
@@ -124,7 +124,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
 
         return jpaQueryFactory
                 .select(Projections.fields(
-                        com.test.react.Model.User.class,
+                        com.test.react.model.User.class,
                         user.id.as("userId"),
                         user.name.as("name"),
                         userDetail.id.as("userDetailId"),

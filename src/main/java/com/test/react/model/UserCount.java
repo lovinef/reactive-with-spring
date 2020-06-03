@@ -1,4 +1,4 @@
-package com.test.react.Model;
+package com.test.react.model;
 
 import lombok.Builder;
 import lombok.Getter;
