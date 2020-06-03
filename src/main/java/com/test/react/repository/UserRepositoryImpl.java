@@ -112,7 +112,6 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
         if(page <= 0) page = 0;
         else page = page - 1;
 
-
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(id != null && id != 0L){
             booleanBuilder.and(user.id.eq(id));
@@ -171,6 +170,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
         long execute = jpaQueryFactory
                 .update(userDetail)
                 .set(userDetail.age, age)
+                .setNull(userDetail.address)
                 .where(userDetail.id.eq(id))
                 .execute();
 
