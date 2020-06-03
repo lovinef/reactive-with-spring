@@ -59,6 +59,21 @@ public class UserService{
                 }).subscribeOn(Schedulers.elastic());
     }
 
+    public Mono<UpdateResponse> updateUserParallel(Long id, int age){
+        Mono<Boolean> updateUserAge = Mono.fromCallable(() -> userRepository.updateUserAge(id, age)).subscribeOn(Schedulers.elastic());
+        Mono<Boolean> updateUserDetailAddressNull = Mono.fromCallable(() -> userRepository.updateUserDetailAddressNull(id)).subscribeOn(Schedulers.elastic());
+
+        return Mono.zip(updateUserAge, updateUserDetailAddressNull)
+                .map(isUpdate ->{
+                    return UpdateResponse.builder()
+                            .success(true)
+                            .status(true ? HttpStatus.OK.value() : HttpStatus.INTERNAL_SERVER_ERROR.value())
+                            .message(true ? "수정 성공" : "수정 실패")
+                            .build();
+                }).subscribeOn(Schedulers.elastic());
+    }
+
+
     public Mono<UpdateResponse> updateUserPost(User user){
         return Mono.fromCallable(() -> userRepository.updateUserAge(user.getUserId(), user.getAge()))
                 .map(isUpdate ->{

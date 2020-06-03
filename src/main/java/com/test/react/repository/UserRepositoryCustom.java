@@ -16,6 +16,7 @@ public interface UserRepositoryCustom {
 
 
     boolean updateUserAge(Long id, int age);
+    boolean updateUserDetailAddressNull(Long id);
     boolean deleteUser(Long id);
     Long countUser();
 

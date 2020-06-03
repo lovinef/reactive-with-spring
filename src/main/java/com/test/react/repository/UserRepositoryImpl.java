@@ -170,6 +170,17 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
         long execute = jpaQueryFactory
                 .update(userDetail)
                 .set(userDetail.age, age)
+                .where(userDetail.id.eq(id))
+                .execute();
+
+        return execute > 0;
+    }
+
+    @Override
+    @Transactional
+    public boolean updateUserDetailAddressNull(Long id) {
+        long execute = jpaQueryFactory
+                .update(userDetail)
                 .setNull(userDetail.address)
                 .where(userDetail.id.eq(id))
                 .execute();

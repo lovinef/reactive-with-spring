@@ -69,6 +69,14 @@ public class UserController {
         return userService.updateUser(id, age);
     }
 
+    @GetMapping("/update/p/{id}/{age}")
+    public Mono<UpdateResponse> updateUserParallel(
+            @PathVariable("id") Long id,
+            @PathVariable("age") int age
+    ){
+        return userService.updateUserParallel(id, age);
+    }
+
     @PostMapping("/update")
     public Mono<UpdateResponse> updateUserPost(@RequestBody User user){
         return userService.updateUserPost(user);
