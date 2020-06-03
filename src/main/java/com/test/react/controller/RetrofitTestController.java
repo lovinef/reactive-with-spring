@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
@@ -27,5 +28,16 @@ public class RetrofitTestController {
     @GetMapping("/list/async")
     public Mono<List<TestModel>> getTestModelListAsync(){
         return testService.getTestModelListAsync();
+    }
+
+    @GetMapping("/list/paging/{blockCnt}/{page}")
+    public Mono<List<TestModel>> getPagingTestModel(@PathVariable(name="blockCnt", required = true) int blockCnt,
+                                                    @PathVariable(name="page", required = true) int page){
+        return testService.getPagingTestModel(blockCnt, page);
+    }
+
+    @GetMapping("/mono/error")
+    public Mono<List<TestModel>> monoError(){
+        return testService.monoError();
     }
 }

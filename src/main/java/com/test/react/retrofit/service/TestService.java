@@ -55,4 +55,25 @@ public class TestService {
             });
         });
     }
+
+    public Mono<List<TestModel>> getPagingTestModel(int blockCnt, int page) {
+        return Mono.create(sink -> {
+            TestApi testApi = RequestUtil.createService(TestApi.class);
+            Call<List<TestModel>> testModelList = testApi.getPagingTestModel(blockCnt, page);
+            Optional<List<TestModel>> testModels = RequestUtil.requestSync(testModelList);
+
+            if(testModels.isPresent()) {
+                sink.success(testModels.get());
+            }else{
+                sink.error(new Exception("has no data"));
+            }
+        });
+    }
+
+    public Mono<List<TestModel>> monoError(){
+        return Mono.create(sink -> {
+//            sink.success(new ArrayList<>());    // 에러반환 방지
+            sink.error(new Exception("mono error"));    // 에러 반환
+        });
+    }
 }

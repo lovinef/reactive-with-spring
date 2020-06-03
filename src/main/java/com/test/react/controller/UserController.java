@@ -21,13 +21,21 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/list")
-    public Mono<List<User>> main(){
+    public Mono<List<User>> list(){
         return userService.getAllUser();
     }
 
     @GetMapping("/list/none")
     public Mono<List<User>> listNone(){
         return null;
+    }
+
+    @GetMapping("/list/paging")
+    public Mono<List<User>> listPaging(
+            @RequestParam(name="blockCnt") int blockCnt,
+            @RequestParam(name="page") int page
+    ){
+        return userService.getAllUser(blockCnt, page, null, null);
     }
 
     @GetMapping("/list/{blockCnt}/{page}")

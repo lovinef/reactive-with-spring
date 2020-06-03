@@ -134,7 +134,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
                 .leftJoin(userDetail)
                 .on(userDetail.userId.eq(user.id))
                 .where(usernameEq(name), userIdEq(id))
-                .offset((page <= 0) ? 0 : (page -1))
+                .offset(page)
                 .limit(blockCnt)
                 .fetch();
     }
@@ -169,8 +169,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     @Transactional
     public boolean updateUserAge(Long id, int age) {
         long execute = jpaQueryFactory
-                .update(user)
-                .where(user.id.eq(id))
+                .update(userDetail)
+                .set(userDetail.age, age)
+                .where(userDetail.id.eq(id))
                 .execute();
 
         return execute > 0;
