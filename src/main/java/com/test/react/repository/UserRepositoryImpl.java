@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.test.react.entity.UserDetail;
 import com.test.react.model.User;
 import com.test.react.model.UserDate;
 import com.test.react.model.UserDetailCnt;
@@ -22,6 +23,7 @@ import static com.test.react.entity.QUserDetail.userDetail;
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
+    private final UserDetailRepository userDetailRepository;
 
     @Override
     public List<User> findAllByQueryDsl() {
@@ -149,6 +151,12 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     @Override
     public List<User> findUserByFromSubQuery() {
         return null;
+    }
+
+    @Override
+    public boolean insertUserDetail(UserDetail userDetail) {
+        UserDetail save = userDetailRepository.save(userDetail);
+        return save.getId() != null && save.getId() > 0L;
     }
 
     @Override

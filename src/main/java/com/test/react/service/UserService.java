@@ -1,8 +1,10 @@
 package com.test.react.service;
 
+import com.test.react.entity.UserDetail;
 import com.test.react.model.*;
 import com.test.react.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -11,17 +13,16 @@ import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-
 public class UserService{
     private final UserRepository userRepository;
 
-    public Mono<List<User>> getAllUser(){
+    public Flux<User> getAllUser(){
         // blocking call 부분을 별도의 쓰레드에서 처리하기 위한 방법
         return Mono.fromCallable(userRepository::findAllByQueryDsl)
                 .flatMapMany(Flux::fromIterable)
-                .collectList()
                 .subscribeOn(Schedulers.elastic());
 
         // blocking call
@@ -51,6 +52,11 @@ public class UserService{
     public Mono<UpdateResponse> updateUser(Long id, int age){
         return Mono.fromCallable(() -> userRepository.updateUserAge(id, age))
                 .map(isUpdate ->{
+                    if(!isUpdate){
+                        UserDetail userDetail = UserDetail.builder().userId(id).age(age).build();
+                        isUpdate = userRepository.insertUserDetail(userDetail);
+                    }
+
                     return UpdateResponse.builder()
                             .success(isUpdate)
                             .status(isUpdate ? HttpStatus.OK.value() : HttpStatus.INTERNAL_SERVER_ERROR.value())
@@ -65,6 +71,8 @@ public class UserService{
 
         return Mono.zip(updateUserAge, updateUserDetailAddressNull)
                 .map(isUpdate ->{
+                    log.info("isUpdate > " + isUpdate);
+
                     return UpdateResponse.builder()
                             .success(true)
                             .status(true ? HttpStatus.OK.value() : HttpStatus.INTERNAL_SERVER_ERROR.value())
