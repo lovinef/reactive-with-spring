@@ -63,9 +63,7 @@ dependencies {
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     annotationProcessor 'org.projectlombok:lombok'
 
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation 'io.projectreactor:reactor-test'
 
     // support retrofit2
@@ -78,21 +76,26 @@ dependencies {
     implementation ('com.squareup.okhttp3:logging-interceptor:4.0.1')
 }
 
-def querydslSrcDir = 'src/main/generated'
-
+//querydsl 추가
+def queryDslSrcDir = "$buildDir/generated"
 querydsl {
-    library = "com.querydsl:querydsl-apt"
+    library = 'com.querydsl:querydsl-apt'
     jpa = true
-    querydslSourcesDir = querydslSrcDir
+    querydslSourcesDir = queryDslSrcDir
 }
-
 sourceSets {
     main {
         java {
-            srcDirs = ['src/main/java', querydslSrcDir]
+            srcDirs = ['src/main/java', queryDslSrcDir]
         }
     }
 }
+
+task deleteGeneratedSources(type: Delete) {
+    delete file(queryDslSrcDir)
+}
+
+tasks.withType(JavaCompile) { it.dependsOn('deleteGeneratedSources') }
 
 compileQuerydsl{
     options.annotationProcessorPath = configurations.querydsl
